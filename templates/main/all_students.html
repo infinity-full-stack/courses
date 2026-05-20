@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block hero %}
+{% endblock hero %}
+
+{% block main %}
+<section>
+  <div class="section-header">
+    <h2 class="section-title">Barcha <span>Talabalar</span></h2>
+    <a href="{% url 'all_courses' %}" class="section-link">Kurslar <i class="fa-solid fa-arrow-right fa-xs"></i></a>
+  </div>
+  <div class="students-grid">
+    {% for student in students %}
+    <a href="{% url 'student_detail' student.id %}" class="student-card">
+      <div class="student-avatar">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="student-name">{{ student.first_name }} {{ student.last_name }}</div>
+      <div class="student-email">{{ student.email }}</div>
+      <span class="student-courses-count">
+        <i class="fa-solid fa-book-open fa-xs"></i> {{ student.courses.count }} kurs
+      </span>
+    </a>
+    {% empty %}
+    <p style="color: var(--muted);">Hozircha talabalar mavjud emas.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock main %}

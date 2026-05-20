@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<section id="courses">
+  <div class="section-header">
+    <h2 class="section-title">Barcha <span>Kurslar</span></h2>
+    <a href="{% url 'all_students' %}" class="section-link">Talabalar <i class="fa-solid fa-arrow-right fa-xs"></i></a>
+  </div>
+  <div class="films-grid">
+    {% for course in courses %}
+    <div style="position: relative; display: block;">
+      <a href="{% url 'course_detail' course.id %}" class="film-card">
+        <div class="film-poster">
+          {% if course.image %}
+          <img src="{{ course.image.url }}" alt="{{ course.name }}">
+          {% else %}
+          <div class="film-poster-placeholder">
+            <i class="fa-solid fa-book-open"></i>
+            <span>{{ course.name|upper|truncatechars:12 }}</span>
+          </div>
+          {% endif %}
+          <span class="film-badge">KURS</span>
+        </div>
+        <div class="film-info">
+          <div class="film-title">{{ course.name }}</div>
+          <div class="film-meta-row">
+            <span class="film-year">
+              {% if course.duration %}{{ course.duration }} soat{% endif %}
+            </span>
+            <span class="film-genre-tag">
+              {% if course.price %}{{ course.price }} so'm{% else %}Bepul{% endif %}
+            </span>
+          </div>
+        </div>
+      </a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'create_like' course.id %}" class="like-btn {% if course.like %}liked{% endif %}">
+        <i class="fa-{% if course.like %}solid{% else %}regular{% endif %} fa-bookmark"></i>
+      </a>
+      {% endif %}
+    </div>
+    {% empty %}
+    <p style="color: var(--muted);">Hozircha kurslar mavjud emas.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock main %}

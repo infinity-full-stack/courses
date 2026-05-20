@@ -1,0 +1,16 @@
+<nav>
+  <a href="{% url 'all_courses' %}" class="logo">Edu<span>Hub</span></a>
+
+  <ul class="nav-links">
+    <li><a href="{% url 'all_courses' %}" class="{% if request.resolver_match.url_name == 'all_courses' %}active{% endif %}">
+      <i class="fa-solid fa-book-open fa-sm"></i> Kurslar
+    </a></li>
+    <li><a href="{% url 'all_students' %}" class="{% if request.resolver_match.url_name == 'all_students' %}active{% endif %}">
+      <i class="fa-solid fa-users fa-sm"></i> Talabalar
+    </a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="btn-login"><i class="fa-solid fa-user fa-xs"></i> Kirish</button>
+  </div>
+</nav>

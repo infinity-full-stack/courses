@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block hero %}
+{% endblock hero %}
+
+{% block main %}
+<div class="back-bar">
+  <a href="{% url 'all_students' %}" class="back-link">
+    <i class="fa-solid fa-arrow-left fa-xs"></i> Orqaga qaytish
+  </a>
+</div>
+
+<div class="detail-hero">
+  <div class="detail-poster fade-up">
+    <div class="detail-poster-img">
+      <i class="fa-solid fa-user"></i>
+      <span>TALABA</span>
+    </div>
+  </div>
+
+  <div class="detail-info">
+    <div class="detail-badges fade-up">
+      <span class="tag tag-yellow"><i class="fa-solid fa-user-graduate fa-xs"></i> Talaba</span>
+      <span class="tag tag-muted"><i class="fa-solid fa-book-open fa-xs"></i> {{ student.courses.count }} kurs</span>
+    </div>
+
+    <h1 class="detail-title fade-up delay-1">{{ student.first_name }} {{ student.last_name }}</h1>
+
+    <div class="stats-row fade-up delay-2">
+      <div class="stat-item">
+        <div class="stat-value">{{ student.courses.count }}</div>
+        <div class="stat-label"><i class="fa-solid fa-book-open fa-xs"></i> Kurslar</div>
+      </div>
+      {% if student.phone %}
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value" style="font-size:16px;">{{ student.phone }}</div>
+        <div class="stat-label"><i class="fa-solid fa-phone fa-xs"></i> Telefon</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <p class="detail-desc fade-up delay-2">
+      <i class="fa-solid fa-envelope fa-xs"></i> {{ student.email }}
+    </p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-header">
+    <h2 class="section-title">O'qiyotgan <span>Kurslar</span></h2>
+  </div>
+  <div class="films-grid">
+    {% for course in student.courses.all %}
+    <a href="{% url 'course_detail' course.id %}" class="film-card">
+      <div class="film-poster">
+        {% if course.image %}
+        <img src="{{ course.image.url }}" alt="{{ course.name }}">
+        {% else %}
+        <div class="film-poster-placeholder">
+          <i class="fa-solid fa-book-open"></i>
+          <span>{{ course.name|upper|truncatechars:12 }}</span>
+        </div>
+        {% endif %}
+        <span class="film-badge">KURS</span>
+      </div>
+      <div class="film-info">
+        <div class="film-title">{{ course.name }}</div>
+        <div class="film-meta-row">
+          <span class="film-year">{% if course.duration %}{{ course.duration }} soat{% endif %}</span>
+          <span class="film-genre-tag">{% if course.price %}{{ course.price }} so'm{% else %}Bepul{% endif %}</span>
+        </div>
+      </div>
+    </a>
+    {% empty %}
+    <p style="color: var(--muted);">Hali hech qanday kursga yozilmagan.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock main %}

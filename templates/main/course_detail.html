@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block hero %}
+{% endblock hero %}
+
+{% block main %}
+<div class="back-bar">
+  <a href="{% url 'all_courses' %}" class="back-link">
+    <i class="fa-solid fa-arrow-left fa-xs"></i> Orqaga qaytish
+  </a>
+</div>
+
+<div class="detail-hero">
+  <div class="detail-poster fade-up">
+    <div class="detail-poster-img">
+      {% if course.image %}
+      <img src="{{ course.image.url }}" alt="{{ course.name }}">
+      {% else %}
+      <i class="fa-solid fa-book-open"></i>
+      <span>{{ course.name|upper|truncatechars:14 }}</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="detail-info">
+    <div class="detail-badges fade-up">
+      <span class="tag tag-yellow"><i class="fa-solid fa-graduation-cap fa-xs"></i> Kurs</span>
+      {% if course.duration %}
+      <span class="tag tag-muted"><i class="fa-regular fa-clock fa-xs"></i> {{ course.duration }} soat</span>
+      {% endif %}
+      {% if course.price %}
+      <span class="tag tag-orange"><i class="fa-solid fa-tag fa-xs"></i> {{ course.price }} so'm</span>
+      {% endif %}
+    </div>
+
+    <h1 class="detail-title fade-up delay-1">{{ course.name }}</h1>
+
+    <div class="stats-row fade-up delay-2">
+      <div class="stat-item">
+        <div class="stat-value">{{ students.count }}</div>
+        <div class="stat-label"><i class="fa-solid fa-users fa-xs"></i> Talabalar</div>
+      </div>
+      {% if course.duration %}
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value">{{ course.duration }}</div>
+        <div class="stat-label"><i class="fa-regular fa-clock fa-xs"></i> Soat</div>
+      </div>
+      {% endif %}
+      {% if course.price %}
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value" style="font-size:20px;">{{ course.price }}</div>
+        <div class="stat-label"><i class="fa-solid fa-tag fa-xs"></i> Narxi</div>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if course.description %}
+    <p class="detail-desc fade-up delay-2">{{ course.description }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-header">
+    <h2 class="section-title">Kurs <span>Talabalari</span></h2>
+  </div>
+  <div class="cast-grid">
+    {% for student in students %}
+    <a href="{% url 'student_detail' student.id %}" class="cast-card">
+      <div class="cast-avatar">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="cast-name">{{ student.first_name }} {{ student.last_name }}</div>
+      <div class="cast-role">{{ student.email }}</div>
+    </a>
+    {% empty %}
+    <p style="color: var(--muted);">Bu kursda hali talabalar yo'q.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock main %}
