@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <style>
+        body {
+            background:
+                radial-gradient(circle at top left, #1e3a8a, transparent 30%),
+                radial-gradient(circle at bottom right, #7c3aed, transparent 30%),
+                #0f172a;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-lg">
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-10 text-center">
+            <div class="mx-auto w-24 h-24 rounded-full bg-red-500/20 flex items-center justify-center border border-red-400/30 mb-6">
+                <i class="fa-solid fa-right-from-bracket text-5xl text-red-300"></i>
+            </div>
+            <h1 class="text-4xl font-extrabold text-white mb-3">Logged Out</h1>
+            <p class="text-slate-300 text-lg mb-8">Siz admin paneldan muvaffaqiyatli chiqdingiz.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'admin:login' %}"
+                    class="px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 transition duration-300">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Qayta Login
+                </a>
+                <a href="/"
+                    class="px-6 py-3 rounded-2xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition duration-300">
+                    <i class="fa-solid fa-house mr-2"></i> Bosh sahifa
+                </a>
+            </div>
+        </div>
+        <div class="text-center mt-6 text-slate-400 text-sm">© 2026 EduHub Admin Panel</div>
+    </div>
+</body>
+</html>

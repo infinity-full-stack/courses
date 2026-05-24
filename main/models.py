@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 
 class Course(models.Model):
@@ -44,3 +46,17 @@ class CourseLike(models.Model):
     class Meta:
         verbose_name = 'Like'
         verbose_name_plural = 'Likelar'
+
+
+class Comment(models.Model):
+    text = models.TextField(verbose_name="Matn")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Vaqti")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Kurs")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Foydalanuvchi")
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = 'Izoh'
+        verbose_name_plural = 'Izohlar'
