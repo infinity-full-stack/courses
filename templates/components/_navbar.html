@@ -11,6 +11,23 @@
   </ul>
 
   <div class="nav-right">
-    <button class="btn-login"><i class="fa-solid fa-user fa-xs"></i> Kirish</button>
+    {% if user.is_authenticated %}
+    <span style="color: var(--muted); font-size: 13px;">
+      <i class="fa-solid fa-user fa-xs"></i> {{ user.username }}
+    </span>
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn-login" style="background: var(--accent2);">
+        <i class="fa-solid fa-right-from-bracket fa-xs"></i> Chiqish
+      </button>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn-login">
+      <i class="fa-solid fa-right-to-bracket fa-xs"></i> Kirish
+    </a>
+    <a href="{% url 'register' %}" class="btn-login" style="background: var(--surface2); border: 1px solid var(--border); color: var(--text);">
+      <i class="fa-solid fa-user-plus fa-xs"></i> Ro'yxat
+    </a>
+    {% endif %}
   </div>
 </nav>
